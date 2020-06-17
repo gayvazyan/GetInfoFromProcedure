@@ -1,0 +1,51 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+
+}
+
+    @*<div class="text-center">
+        <h4> Տվյալները ստացվում են sp_GetSubDistrict պրոցեդուրայից</h4>
+        <h3> Տեղամասեր</h3>
+
+        @if (Model.subDistrictList != null)
+        {
+            <table border="1">
+                <tbody>
+                    <tr>
+                        <td>Մարզ</td>
+                        <td>Համայնք</td>
+                        <td>Բնակավայր</td>
+                        <td>Ընտրատարածք</td>
+                        <td>Տեղամաս</td>
+                        <td>Name</td>
+                        <td>Ընտրողների թիվ</td>
+                        <td>Հասցե</td>
+                        <td>Տարածք</td>
+                    </tr>
+                    @foreach (var item in Model.subDistrictList)
+                    {
+                        <tr>
+                            <td style="text-align:left">@item.Expr2</td>
+                            <td style="text-align:left">@item.Expr1</td>
+                            <td style="text-align:left">@item.Expr3</td>
+                            <td style="text-align:left">@item.DistrictId</td>
+                            <td style="text-align:left">@item.SubDistrictCode</td>
+                            <td style="text-align:left">@item.Name</td>
+                            <td style="text-align:left">@item.EmployCount</td>
+                            <td style="text-align:left">@item.Comment</td>
+                            <td style="text-align:left">@item.Zone</td>
+
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        }
+
+        <br />
+        <br />
+      
+
+    </div>*@

@@ -102,10 +102,84 @@ namespace GetInfoFromProcedure.Context
         public virtual DbSet<SubDistrictModel> SubDistrictModelDB { get; set; }
 
         public virtual DbSet<ParlamentaryElection> ParlamentaryElectionDB { get; set; }
-
+        public virtual DbSet<Region> RegionDB { get; set; }
+        public virtual DbSet<Community> CommunityDB { get; set; }
+        public virtual DbSet<CandidateParty> CandidatePartyDB { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<CandidateParty>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.CandidateId).IsUnicode(false);
+
+                entity.Property(e => e.State).IsUnicode(false);
+
+                entity.Property(e => e.ActivityDate).IsUnicode(false);
+
+                entity.Property(e => e.IsElected).IsUnicode(false);
+
+                entity.Property(e => e.ElectionId).IsUnicode(false);
+
+                entity.Property(e => e.DistrictId).IsUnicode(false);
+
+                entity.Property(e => e.CommissionId).IsUnicode(false);
+
+                entity.Property(e => e.OrderNum).IsUnicode(false);
+
+                entity.Property(e => e.PartieOrPartyId).IsUnicode(false);
+                entity.Property(e => e.FullName).IsUnicode(false);
+                entity.Property(e => e.Prefix).IsUnicode(false);
+                entity.Property(e => e.Platform).IsUnicode(false);
+                entity.Property(e => e.FullNameEn).IsUnicode(false);
+                entity.Property(e => e.PrefixEn).IsUnicode(false);
+                entity.Property(e => e.PlatformEn).IsUnicode(false);
+                entity.Property(e => e.CandidateSum).IsUnicode(false);
+                entity.Property(e => e.Mandat).IsUnicode(false);
+                entity.Property(e => e.Persent).IsUnicode(false);
+                entity.Property(e => e.Zone1).IsUnicode(false);
+                entity.Property(e => e.Zone2).IsUnicode(false);
+                entity.Property(e => e.Zone3).IsUnicode(false);
+                entity.Property(e => e.Zone4).IsUnicode(false);
+                entity.Property(e => e.Zone5).IsUnicode(false);
+                entity.Property(e => e.Zone6).IsUnicode(false);
+                entity.Property(e => e.Zone7).IsUnicode(false);
+                entity.Property(e => e.Zone8).IsUnicode(false);
+                entity.Property(e => e.Zone9).IsUnicode(false);
+                entity.Property(e => e.Zone10).IsUnicode(false);
+                entity.Property(e => e.Zone11).IsUnicode(false);
+                entity.Property(e => e.Zone12).IsUnicode(false);
+                entity.Property(e => e.Zone13).IsUnicode(false);
+                entity.Property(e => e.SumZone).IsUnicode(false);
+
+            });
+
+            modelBuilder.Entity<Community>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.CommunityCode).IsUnicode(false);
+
+                entity.Property(e => e.RegionCode).IsUnicode(false);
+
+                entity.Property(e => e.Name).IsUnicode(false);
+
+                entity.Property(e => e.NameEn).IsUnicode(false);
+
+                entity.Property(e => e.PositionX).IsUnicode(false);
+
+                entity.Property(e => e.PositionY).IsUnicode(false);
+
+                entity.Property(e => e.Pr).IsUnicode(false);
+
+                entity.Property(e => e.Consolidated).IsUnicode(false);
+
+                entity.Property(e => e.Zone).IsUnicode(false);
+                
+            });
 
             modelBuilder.Entity<ParlamentaryElection>(entity =>
             {
@@ -128,35 +202,57 @@ namespace GetInfoFromProcedure.Context
                 entity.Property(e => e.ElNum1).IsUnicode(false);
 
                 entity.Property(e => e.ElecCardsEl).IsUnicode(false);
+
                 entity.Property(e => e.TotalEnvelopes).IsUnicode(false);
+
                 entity.Property(e => e.EnvelopesCount).IsUnicode(false);
+
                 entity.Property(e => e.BadEnvelopes).IsUnicode(false);
+
                 entity.Property(e => e.BadElecCards).IsUnicode(false);
+
                 entity.Property(e => e.NoElecCards).IsUnicode(false);
+
+                entity.Property(e => e.NoRSize).IsUnicode(false);
             });
-      
-     
+
+            modelBuilder.Entity<Region>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.RegionCode).IsUnicode(false);
+
+                entity.Property(e => e.Name).IsUnicode(false);
+
+                entity.Property(e => e.NameEn).IsUnicode(false);
+            });
 
             modelBuilder.Entity<SubDistrictModel>(entity =>
             {
                 entity.HasNoKey();
 
-                entity.Property(e => e.Expr2).IsUnicode(false);
-
-                entity.Property(e => e.Expr1).IsUnicode(false);
-
-                entity.Property(e => e.Expr3).IsUnicode(false);
-
-                entity.Property(e => e.DistrictId).IsUnicode(false);
+                entity.Property(e => e.SubDistrictId).IsUnicode(false);
 
                 entity.Property(e => e.SubDistrictCode).IsUnicode(false);
 
+                entity.Property(e => e.ElectionId).IsUnicode(false);
+
+                entity.Property(e => e.DistrictId).IsUnicode(false);
+
                 entity.Property(e => e.Name).IsUnicode(false);
 
-                entity.Property(e => e.EmployCount).IsUnicode(false);
+                entity.Property(e => e.RegionCode).IsUnicode(false);
+
+                entity.Property(e => e.CommunityCode).IsUnicode(false);
 
                 entity.Property(e => e.Comment).IsUnicode(false); 
 
+                entity.Property(e => e.PoisitionX).IsUnicode(false); 
+
+                entity.Property(e => e.PoisitionY).IsUnicode(false); 
+
+                entity.Property(e => e.Settlement).IsUnicode(false);
+                
                 entity.Property(e => e.Zone).IsUnicode(false); 
             });
 

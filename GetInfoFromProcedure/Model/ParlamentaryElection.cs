@@ -49,6 +49,32 @@ namespace GetInfoFromProcedure.Model
         //  Անվավեր  քվեաթերթիկների թիվը
         public int NoElecCards { get; set; }
 
-        //  Անճշտությունների գումարային չափը
+        // Անճշտությունների գումարային չափը
+        public int NoRSize { get; set; }
+
+        //private List<CandidateParty> _candidateParty;
+        //private List<PecMember> _pecMembers; 
+        //private List<SubDistrict>  _subDistricts;
+
+        // Գրանցված թեկնածուներ (կուսակցություններ)
+        //public List<CandidateParty> CandidateParties
+        //{
+        //    get => _candidateParty ?? (_candidateParty = new List<CandidateParty>());
+        //    set => _candidateParty = value;
+        //}
+
+        // Տեղամասային հանձնաժողովի անդամներ
+        //public List<PecMember> PecMembers
+        //{
+        //    get => _pecMembers ?? (_pecMembers = new List<PecMember>());
+        //    set => _pecMembers = value;
+        //}
+
+        // Ընտրատեղամասեր
+        //public List<SubDistrict> SubDistricts 
+        //{
+        //    get => _subDistricts ?? (_subDistricts = new List<SubDistrict>());
+        //    set => _subDistricts = value;
+        //}
     }
 }

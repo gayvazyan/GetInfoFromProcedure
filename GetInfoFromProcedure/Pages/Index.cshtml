@@ -4,8 +4,124 @@
     ViewData["Title"] = "Home page";
 
 }
+    <form>
+        <h4>Մարզեր</h4>
+        <select asp-for="RegionCode" asp-items="Model.RegionList">
+            <option value="">ընտրեք․․․</option>
+        </select>
 
-    @*<div class="text-center">
+        <h4>Համայնքներ</h4>
+        <select asp-for="CommunityCode"></select>
+
+        <h4>Տեղամասերը</h4>
+        <select asp-for="SubDistrictCode"></select>
+
+    </form>
+
+
+    <table>
+        <tbody>
+            <tr>
+                <td>Ընտրողների ցուցակներում ընդգրկված ընտրողների ընդհանուր թիվը</td>
+                <td>@Model.Input.BodyList</td>
+            </tr>
+            <tr>
+                <td>Քվեարկության օրն ընտրական տեղամասում կազմված ընտրողների լրացուցիչ ցուցակում ընտրողների ընդհանուր թիվը</td>
+                <td>@Model.Input.PrecinctList</td>
+            </tr>
+            <tr>
+                <td>Շրջիկ արկղով քվեարկող ընտրողների լրացուցիչ ցուցակում  ընտրողների ընդհանուր թիվը</td>
+                <td>@Model.Input.StationarList</td>
+            </tr>
+            <tr>
+                <td>Էլեկտրոնային եղանակով քվեարկության մասնակցած ընտրողների թիվը</td>
+                <td>@Model.Input.ElCountOfBody</td>
+            </tr>
+            <tr>
+                <td>Ընտրողների ընդհանուր թիվը</td>
+                <td>@Model.Input.CountOfBody</td>
+            </tr>
+            <tr>
+                <td>Քվեարկության մասնակիցների ընդհանուր թիվը</td>
+                <td>@Model.Input.BodyCount</td>
+            </tr>
+            <tr>
+                <td>Տեղամասային ընտրական հանձնաժողովներին հատկացված ինքնասոսնձվող դրոշմանիշների ընդհանուր թիվը</td>
+                <td>@Model.Input.ElNum</td>
+            </tr>
+            <tr>
+                <td>Տեղամասային ընտրական հանձնաժողովներին հատկացված համարակալված կտրոնների ընդհանուր թիվը</td>
+                <td>@Model.Input.ElNum1</td>
+            </tr>
+            <tr>
+                <td>Ընտրողներից ստացված տեխնիկական սարքավորմամբ տպված կտրոնների ընդհանուր թիվը</td>
+                <td>@Model.Input.ElecCardsEl</td>
+            </tr>
+            <tr>
+                <td>Ընտրողներից ստացված համարակալված քվեարկության կտրոնների ընդհանուր թիվը</td>
+                <td>@Model.Input.TotalEnvelopes</td>
+            </tr>
+            <tr>
+                <td>Ընտրողներից ստացված կտրոնների ընդհանուր թիվը</td>
+                <td>@Model.Input.EnvelopesCount</td>
+            </tr>
+            <tr>
+                <td>Չօգտագործված համարակալված կտրոնների ընդհանուր թիվը</td>
+                <td>@Model.Input.BadEnvelopes</td>
+            </tr>
+            <tr>
+                <td>Չօգտագործված ինքնասոսնձվող դրոշմանիշերի ընդհանուր թիվը</td>
+                <td>@Model.Input.BadElecCards</td>
+            </tr>
+            <tr>
+                <td>Անվավեր  քվեաթերթիկների թիվը</td>
+                <td>@Model.Input.NoElecCards</td>
+            </tr>
+            <tr>
+                <td>Անճշտությունների գումարային չափը</td>
+               <td>@Model.Input.NoRSize</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+
+@section scripts{
+    <script>
+        $(function () {
+            $("#RegionCode").on("change", function () {
+                var regionCode = $(this).val();
+                $("#CommunityCode").empty();
+                $("#CommunityCode").append("<option value=''>ընտրեք․․․</option>");
+                $.getJSON(`?handler=Communities&regionCode=${regionCode}`, (data) => {
+                    $.each(data, function (i, item) {
+                        $("#CommunityCode").append(`<option value="${item.communityCode}">${item.name}</option>`);
+                    });
+                });
+            });
+            $("#CommunityCode").on("change", function () {
+                var communityCode = $(this).val();
+                $("#SubDistrictCode").empty();
+                $("#SubDistrictCode").append("<option value=''>ընտրեք․․․</option>");
+                $.getJSON(`?handler=SubDistricts&communityCode=${communityCode}`, (data) => {
+                    $.each(data, function (i, item) {
+                        $("#SubDistrictCode").append(`<option value="${item.subDistrictId}">${item.name}</option>`);
+                    });
+                });
+            });
+            $("#SubDistrictCode").on("change", function () {
+                var subDistrictCode = $(this).val();
+                $.getJSON(`?handler=Functionsss&subDistrictCode=${subDistrictCode}`);
+            });
+        });
+    </script>
+}
+
+
+
+
+@*<div class="text-center">
         <h4> Տվյալները ստացվում են sp_GetSubDistrict պրոցեդուրայից</h4>
         <h3> Տեղամասեր</h3>
 
@@ -46,6 +162,6 @@
 
         <br />
         <br />
-      
+
 
     </div>*@

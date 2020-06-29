@@ -69,3 +69,4 @@ C:\Users\gareg\source\repos\GetInfoFromProcedure\GetInfoFromProcedure\obj\Debug\
 C:\Users\gareg\source\repos\GetInfoFromProcedure\GetInfoFromProcedure\obj\Debug\netcoreapp3.1\GetInfoFromProcedure.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\gareg\source\repos\GetInfoFromProcedure\GetInfoFromProcedure\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Relational.Design.dll
 C:\Users\gareg\source\repos\GetInfoFromProcedure\GetInfoFromProcedure\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.SqlServer.Design.dll
+C:\Users\gareg\source\repos\GetInfoFromProcedure\GetInfoFromProcedure\obj\Debug\netcoreapp3.1\GetInfoFromProcedure.csprojAssemblyReference.cache

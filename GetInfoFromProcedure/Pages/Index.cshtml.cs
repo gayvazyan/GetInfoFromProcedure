@@ -72,17 +72,27 @@ namespace GetInfoFromProcedure.Pages
         public void OnGet()
         {
             
-            var list1 = GetCandidateParty(27576, "", "", 0);
+            //var list1 = GetCandidateParty(27576, "", "", 0);
 
-            Input = GetParlamentaryElection(27576, "", "", 0);
+            //Input = GetParlamentaryElection(27576, "", "", 0);
+            //////////////////////////////////////////////////
+            //var regionListQuery = _dbContext.RegionDB
+            //   .FromSqlRaw("Execute cec.GetRegions").AsEnumerable();
+            //var regionList = regionListQuery.ToList();
+
+            //RegionList = new SelectList(regionList, nameof(Region.RegionCode), nameof(Region.Name));
+
             ////////////////////////////////////////////////
-            var regionListQuery = _dbContext.RegionDB
-               .FromSqlRaw("Execute cec.GetRegions").AsEnumerable();
-            var regionList = regionListQuery.ToList();
-
-            RegionList = new SelectList(regionList, nameof(Region.RegionCode), nameof(Region.Name));
+            ///
+            var candidateId = 62655;
+            SqlParameter parameter = new SqlParameter("@candidateId", candidateId);
+            var partieOrPartyPersonsListQuery = _dbContext.PartieOrPartyPersonsByCanditateIdDB
+               .FromSqlRaw("Execute cec.GetPartieOrPartyPersonsByCanditateId @candidateId", parameter).AsEnumerable();
+            var partieOrPartyPersonsList = partieOrPartyPersonsListQuery.ToList();
 
         }
+
+
 
         public JsonResult OnGetCommunities(string regionCode)
         {
@@ -111,8 +121,6 @@ namespace GetInfoFromProcedure.Pages
             
             return new JsonResult(subDistricts);
         }
-
-        
 
         public JsonResult OnGetFunctionsss(string subDistrictCode,string communityCode)
         {

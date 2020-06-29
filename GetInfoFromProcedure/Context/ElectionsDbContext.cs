@@ -105,10 +105,32 @@ namespace GetInfoFromProcedure.Context
         public virtual DbSet<Region> RegionDB { get; set; }
         public virtual DbSet<Community> CommunityDB { get; set; }
         public virtual DbSet<CandidateParty> CandidatePartyDB { get; set; }
+        public virtual DbSet<PartieOrPartyPersonsByCanditateId> PartieOrPartyPersonsByCanditateIdDB { get; set; }
         
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<PartieOrPartyPersonsByCanditateId>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.FirstName).IsUnicode(false);
+
+                entity.Property(e => e.MiddleName).IsUnicode(false);
+
+                entity.Property(e => e.LastName).IsUnicode(false);
+
+                entity.Property(e => e.FirstNameEn).IsUnicode(false);
+
+                entity.Property(e => e.MiddleNameEn).IsUnicode(false);
+
+                entity.Property(e => e.LastNameEn).IsUnicode(false);
+
+                entity.Property(e => e.ElectedType).IsUnicode(false);
+
+                entity.Property(e => e.Zone).IsUnicode(false);
+
+            });
 
             modelBuilder.Entity<CandidateParty>(entity =>
             {

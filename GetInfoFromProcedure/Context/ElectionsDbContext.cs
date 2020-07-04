@@ -106,10 +106,37 @@ namespace GetInfoFromProcedure.Context
         public virtual DbSet<Community> CommunityDB { get; set; }
         public virtual DbSet<CandidateParty> CandidatePartyDB { get; set; }
         public virtual DbSet<PartieOrPartyPersonsByCanditateId> PartieOrPartyPersonsByCanditateIdDB { get; set; }
+      //  public virtual DbSet<Test> TestDB { get; set; }
         
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+          
+            //modelBuilder.Entity<Test>(entity =>
+            //{
+            //    entity.HasNoKey();
+
+            //    entity.Property(e => e.Region).IsUnicode(false);
+
+            //    entity.Property(e => e.Community).IsUnicode(false);
+
+            //    entity.Property(e => e.DistrictId).IsUnicode(false);
+
+            //    entity.Property(e => e.SubDistrictCode).IsUnicode(false);
+
+            //    entity.Property(e => e.FullName).IsUnicode(false);
+
+            //    entity.Property(e => e.Sertifcate).IsUnicode(false);
+
+            //    entity.Property(e => e.Phone).IsUnicode(false);
+
+            //    entity.Property(e => e.ShortName).IsUnicode(false);
+
+            //    entity.Property(e => e.WorkPosition).IsUnicode(false);
+
+
+            //});
+
             modelBuilder.Entity<PartieOrPartyPersonsByCanditateId>(entity =>
             {
                 entity.HasNoKey();

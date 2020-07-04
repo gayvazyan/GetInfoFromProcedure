@@ -27,7 +27,7 @@ namespace GetInfoFromProcedure.Pages
         public string regionCode;
         public string communityCode;
         public string subDistrictCode;
-        
+
 
         public SelectList RegionList { get; set; }
 
@@ -40,7 +40,7 @@ namespace GetInfoFromProcedure.Pages
             Input = new ParlamentaryElection();
         }
 
-        public ParlamentaryElection GetParlamentaryElection(int elID,string regCod,string comCod,int subId)
+        public ParlamentaryElection GetParlamentaryElection(int elID, string regCod, string comCod, int subId)
         {
             var parameters = new[] {
                 new SqlParameter("@electionID", elID),
@@ -51,9 +51,61 @@ namespace GetInfoFromProcedure.Pages
 
             var parlamentaryElectionQuery = _dbContext.ParlamentaryElectionDB
                 .FromSqlRaw("Execute cec.GetParliamentaryElectiveResultsByElectionId @electionID,@regionCode,@communityCode,@subdistinctID", parameters).AsEnumerable();
-           return parlamentaryElectionQuery.FirstOrDefault();
+            return parlamentaryElectionQuery.FirstOrDefault();
         }
 
+        public CombineTestModel GetCombineTestList(int electionId)
+        {
+            CombineTestModel combineTestModel = new CombineTestModel();
+            List<Test> ListTest = new List<Test>();
+            int ElectionId = 0;
+            var Date = DateTime.Now;
+            //using (var ctx = new ElectionsDbContext())
+            //{
+            using (var cnn = _dbContext.Database.GetDbConnection())
+            {
+                var cmm = cnn.CreateCommand();
+                cmm.CommandType = System.Data.CommandType.StoredProcedure;
+                cmm.CommandText = "dbo.test";
+                cmm.Connection = cnn;
+                cmm.Parameters.Add(new SqlParameter("@electionID", electionId));
+                cnn.Open();
+                using (var reader = cmm.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Test test = new Test()
+                        {
+                            Region = reader["Region"].ToString(),
+                            Community = reader["Community"].ToString(),
+                            DistrictId = int.Parse(reader["DistrictId"].ToString()),
+                            FullName = reader["FullName"].ToString(),
+                            SubDistrictCode = reader["SubDistrictCode"].ToString(),
+                            Sertifcate = reader["Sertifcate"].ToString(),
+                            Phone = reader["Phone"].ToString(),
+                            ShortName = reader["ShortName"].ToString(),
+                            WorkPosition = reader["WorkPosition"].ToString(),
+
+                        };
+                        ListTest.Add(test);
+
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        ElectionId = int.Parse(reader["ElectionId"].ToString());
+                        Date = Convert.ToDateTime(reader["Date"].ToString());
+                    }
+
+                    combineTestModel.listTest = ListTest;
+                    combineTestModel.ElectionId = ElectionId;
+                    combineTestModel.Date = Date;
+                }
+            }
+            return combineTestModel;
+        }
 
         public List<CandidateParty> GetCandidateParty(int elID, string regCod, string comCod, int subId)
         {
@@ -71,26 +123,11 @@ namespace GetInfoFromProcedure.Pages
 
         public void OnGet()
         {
-            
-            //var list1 = GetCandidateParty(27576, "", "", 0);
-
-            //Input = GetParlamentaryElection(27576, "", "", 0);
-            //////////////////////////////////////////////////
-            //var regionListQuery = _dbContext.RegionDB
-            //   .FromSqlRaw("Execute cec.GetRegions").AsEnumerable();
-            //var regionList = regionListQuery.ToList();
-
-            //RegionList = new SelectList(regionList, nameof(Region.RegionCode), nameof(Region.Name));
-
-            ////////////////////////////////////////////////
-            ///
-            var candidateId = 62655;
-            SqlParameter parameter = new SqlParameter("@candidateId", candidateId);
-            var partieOrPartyPersonsListQuery = _dbContext.PartieOrPartyPersonsByCanditateIdDB
-               .FromSqlRaw("Execute cec.GetPartieOrPartyPersonsByCanditateId @candidateId", parameter).AsEnumerable();
-            var partieOrPartyPersonsList = partieOrPartyPersonsListQuery.ToList();
+            var combineList = GetCombineTestList(27576);
 
         }
+
+
 
 
 
@@ -118,13 +155,13 @@ namespace GetInfoFromProcedure.Pages
                           .FromSqlRaw("Execute cec.GetSubDistrictsByCommunityCodeAndElectionId @communityCode , @electionId", parameters).AsEnumerable();
             var subDistricts = subDistrictsQuery.ToList();
 
-            
+
             return new JsonResult(subDistricts);
         }
 
-        public JsonResult OnGetFunctionsss(string subDistrictCode,string communityCode)
+        public JsonResult OnGetFunctionsss(string subDistrictCode, string communityCode)
         {
-            var regionCode="02";
+            var regionCode = "02";
             SqlParameter parameter = new SqlParameter("@regionCode", regionCode);
 
             var communityListQuery = _dbContext.CommunityDB
